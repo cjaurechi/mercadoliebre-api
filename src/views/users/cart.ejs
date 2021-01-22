@@ -2,7 +2,8 @@
 <html lang="es">
 <!-- Include Head -->
 <%- include('../partials/head', {title: 'Carrito', image: ''}) %>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
+<script src="/js/removeItem.js"></script>
 <body>
    <!-- Header -->
    <%- include('../partials/headerNavbar') %>
@@ -33,9 +34,9 @@
                      </section>
                      <section class="col-3">
                         <p>Cantidad: <%= item.quantity %></p>
-                        <form action="/users/deleteFromCart" method="POST" class="mt-4">
-                           <input type="hidden" name="itemId" value="<%= item.id %>">
-                           <button type="submit" class="action-button delete">ELIMINAR</button>
+                        <form action="/users/deleteFromCart" method="POST" class="mt-4" id="removeForm">
+                           <input type="hidden" name="itemId" id="itemId" value="<%= item.id %>">
+                           <button type="submit" class="action-button delete" id="removeButton">ELIMINAR</button>
                         </form>
                      </section>
                   </section>

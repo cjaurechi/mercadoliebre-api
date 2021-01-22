@@ -1,9 +1,4 @@
-const { validationResult } = require('express-validator');
-const createError = require('http-errors');
-
-// ******** Sequelize ***********
-
-const { Product, Cart, Item } = require('../../database/models');
+const { Product, Item } = require('../../database/models');
 
 function minusPercent(n,p) {
     return n - (n * (p/100));
@@ -11,12 +6,8 @@ function minusPercent(n,p) {
 
 module.exports = {
 
-    test(req, res, next) {
-        res.send('Todo bien papá?');
-    },
-
     // Agrega producto al carrito
-    add(req, res, next) {
+    addToCartAPI(req, res, next) {
         Product.findOne({
             where: {
                 id: req.query.productId
@@ -42,14 +33,22 @@ module.exports = {
                         item: item
                     }
                 }
-                res.redirect('users/cart');
+                res.send(response);
                 })
-                .catch(errors => {
-                    res.send(errors)
-                })
+            .catch(errors => {
+                res.send(errors)
+            })
         })
         .catch(errors => {
             res.send(errors);
+        })
+    },
+
+    removeFromCartAPI(req, res, next) {
+        Item.findOne({
+            where: {
+                // REMUEVE ITEM DEL CARRITO
+            }
         })
     }
 }

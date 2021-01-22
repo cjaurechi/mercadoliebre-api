@@ -10,7 +10,7 @@ module.exports = {
     // Muestra los últimos 5 productos que fueron creados
     latest(req, res, next) {
         Product.findAll({
-            order: [['createdAt', 'DESC']],
+            order: [['createdAt', 'ASC']],
             limit: 8
         })
             .then(function (resultado) {
@@ -29,7 +29,7 @@ module.exports = {
     // Muestra los últimos 5 productos con descuentos mas grandes
     offers(req, res, next) {
         Product.findAll({
-            order: [['discount', 'DESC']],
+            order: [['discount', 'ASC']],
             limit: 8
         })
             .then(function (resultado) {

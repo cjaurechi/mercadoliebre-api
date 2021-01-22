@@ -64,7 +64,6 @@ module.exports = {
 
 			Product.create(_body)
 				.then(product => {
-
 					return res.redirect(`/products/detail/${product.id}`)
 				})
 				.catch(e => console.log(e));
