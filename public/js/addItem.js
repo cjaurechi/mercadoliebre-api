@@ -15,7 +15,6 @@ window.addEventListener('load', function() {
             }
         })
         .then(response => {
-            console.log(response);
             if (response.status == '200') {
                 window.location.assign('http://localhost:3000/users/cart') // Redirigir al Carrito desde el FE?
             } else {
