@@ -43,5 +43,17 @@ module.exports = {
                 }
                 res.send(response)
             })
+    },
+
+    // Muestra todos los productos de una categoría específica
+    getProducts(req, res, next) {
+        Category.findOne({
+			where: {
+				name: req.params.category
+			},
+            include: [{ association: 'products' }]
+        }).then(response => {
+            res.send(response.products)
+        })
     }
 }
