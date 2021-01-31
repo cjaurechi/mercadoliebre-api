@@ -1,10 +1,9 @@
 window.addEventListener('load', function() {
     let addForm = document.getElementById('addForm');
-    let addButton = document.getElementById('addButton');
     let quantityInput = document.getElementById('quantity');
     let productId = addForm.productId.value;
 
-    addButton.addEventListener('click', function(event){
+    addForm.addEventListener('submit', function(event){
         event.preventDefault();
         let quantityValue = quantityInput.value;
         axios({
@@ -17,12 +16,11 @@ window.addEventListener('load', function() {
         })
         .then(response => {
             console.log(response);
-            console.log(response.status);
-            // if (response.status == '201') {
-            //     window.location.assign('http://localhost:3000/users/cart') // Redirigir al Carrito desde el FE?
-            // } else {
-            //     console.log('Error?');
-            // }
+            if (response.status == '200') {
+                window.location.assign('http://localhost:3000/users/cart') // Redirigir al Carrito desde el FE?
+            } else {
+                console.log('Error?');
+            }
         })
         .catch(errors => {
             console.log(errors);

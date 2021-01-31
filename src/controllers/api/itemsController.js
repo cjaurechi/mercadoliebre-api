@@ -10,17 +10,17 @@ module.exports = {
     addToCartAPI(req, res, next) {
         Product.findOne({
             where: {
-                id: req.query.productId
+                id: req.body.productId
             }
         })
         .then(producto => {
             Item.create({
                 salePrice: Math.round(minusPercent(producto.price, producto.discount)),
-                quantity: req.query.quantity,
-                subTotal: req.query.quantity * Math.round(minusPercent(producto.price, producto.discount)),
+                quantity: req.body.quantity,
+                subTotal: req.body.quantity * Math.round(minusPercent(producto.price, producto.discount)),
                 state: 1,
-                productId: req.query.productId,
-                userId: producto.userId,
+                productId: req.body.productId,
+                userId: req.session.user.id,
                 sellerId: producto.brandId
             })
             .then(item => {
