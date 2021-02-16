@@ -22,12 +22,20 @@ module.exports = {
                     Number(product.discount) > 0 ?
                     product.price - (product.price * product.discount) / 100 :
                     product.price;
+
+                // Agrego un campo req.body.userId solo para pegarle a la API desde Postman
+                if (req.body.userId) {
+                    var userId = req.body.userId
+                } else {
+                    var userId = req.session.user.id
+                }
+
                 Item.create({
                     salePrice: price,
                     quantity: req.body.quantity,
                     subTotal: price * req.body.quantity,
                     state: 1,
-                    userId: product.user.id, // Esto tiene que ser el req.session.user.id pero como lo consigo pegandole a la API desde Postman? Agrego un campo req.body.userId?
+                    userId: userId,
                     sellerId: product.user.id,
                     productId: product.id,
                 })
