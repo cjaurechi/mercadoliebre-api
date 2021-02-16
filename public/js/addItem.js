@@ -26,3 +26,5 @@ window.addEventListener('load', function() {
         })
     })
 })
+
+// FALTAN AGREGAR MIDDLEWARES Y VALIDACIONES!!

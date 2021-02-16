@@ -1,58 +1,61 @@
-const { Product, Item } = require('../../database/models');
+// ******** Sequelize ***********
 
-function minusPercent(n,p) {
-    return n - (n * (p/100));
+const {
+    Product,
+    Item,
+    User
+} = require('../../database/models');
+
+function minusPercent(n, p) {
+    return n - (n * (p / 100));
 }
 
 module.exports = {
 
     // Agrega producto al carrito
     addToCartAPI(req, res, next) {
-        Product.findOne({
-            where: {
-                id: req.body.productId
-            }
-        })
-        .then(producto => {
-            Item.create({
-                salePrice: Math.round(minusPercent(producto.price, producto.discount)),
-                quantity: req.body.quantity,
-                subTotal: req.body.quantity * Math.round(minusPercent(producto.price, producto.discount)),
-                state: 1,
-                productId: req.body.productId,
-                userId: req.session.user.id,
-                sellerId: producto.brandId
+        Product.findByPk(req.body.productId, {
+                include: ["user"],
             })
-            .then(item => {
-                let response = {
-                    meta: {
-                        status: 201,
-                        message: 'Product added to cart'
-                    },
-                    data: {
-                        item: item
-                    }
-                }
-                res.send(response);
+            .then(product => {
+                let price =
+                    Number(product.discount) > 0 ?
+                    product.price - (product.price * product.discount) / 100 :
+                    product.price;
+                Item.create({
+                    salePrice: price,
+                    quantity: req.body.quantity,
+                    subTotal: price * req.body.quantity,
+                    state: 1,
+                    userId: product.user.id, // Esto tiene que ser el req.session.user.id pero como lo consigo pegandole a la API desde Postman? Agrego un campo req.body.userId?
+                    sellerId: product.user.id,
+                    productId: product.id,
                 })
-            .catch(errors => {
-                res.send(errors)
+                .then((item) => {
+                    let response = {
+                        meta: {
+                            status: 201,
+                            message: 'Product added to cart'
+                        },
+                        data: {
+                            item: item
+                        }
+                    }
+                    res.send(response);
+                })
+                .catch(err => {res.send(err.message)});
             })
-        })
-        .catch(errors => {
-            res.send(errors);
-        })
+            .catch(err => {res.send(err.message)})
     },
 
     removeFromCartAPI(req, res, next) {
         Item.update({
-            state: 0
-        },
-            {
-            where: {
-                id: req.body.itemId
-            }
-        })
+                state: 0
+            }, {
+                where: {
+                    id: req.body.itemId
+                }
+            })
             .then(response => {
                 res.send(response);
             })
