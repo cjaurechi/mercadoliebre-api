@@ -31,44 +31,53 @@ module.exports = {
                 }
 
                 Item.create({
-                    salePrice: price,
-                    quantity: req.body.quantity,
-                    subTotal: price * req.body.quantity,
-                    state: 1,
-                    userId: userId,
-                    sellerId: product.user.id,
-                    productId: product.id,
-                })
-                .then((item) => {
-                    let response = {
-                        meta: {
-                            status: 201,
-                            message: 'Product added to cart'
-                        },
-                        data: {
-                            item: item
+                        salePrice: price,
+                        quantity: req.body.quantity,
+                        subTotal: price * req.body.quantity,
+                        state: 1,
+                        userId: userId,
+                        sellerId: product.user.id,
+                        productId: product.id,
+                    })
+                    .then((item) => {
+                        let response = {
+                            meta: {
+                                status: 201,
+                                message: 'Product added to cart'
+                            },
+                            data: {
+                                item: item
+                            }
                         }
-                    }
-                    res.send(response);
-                })
-                .catch(err => {res.send(err.message)});
+                        res.send(response);
+                    })
+                    .catch(err => {
+                        res.send(err.message)
+                    });
             })
-            .catch(err => {res.send(err.message)})
+            .catch(err => {
+                res.send(err.message)
+            })
     },
 
     removeFromCartAPI(req, res, next) {
-        Item.update({
-                state: 0
-            }, {
+        Item.destroy({ // Destroy devuelve el número de registros que fueron detruidos
                 where: {
-                    id: req.body.itemId
-                }
+                    id: req.body.id,
+                },
+                force: true // Para que se usa?
             })
             .then(response => {
-                res.send(response);
+                if (response > 0) {
+                    res.json({
+                        status: 200
+                    })
+                } else {
+                    console.log('No se borró nada');
+                }
             })
             .catch(err => {
-                res.send(err);
-            })
+                res.send(err.message)
+            });
     }
 }

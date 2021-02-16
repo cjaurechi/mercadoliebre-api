@@ -2,7 +2,6 @@
 <html lang="es">
 <!-- Include Head -->
 <%- include('../partials/head', {title: 'Carrito', image: ''}) %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js" integrity="sha512-bZS47S7sPOxkjU/4Bt0zrhEtWx0y0CRkhEp8IckzK+ltifIIE9EMIMTuT/mEzoIMewUINruDBIR/jJnbguonqQ==" crossorigin="anonymous"></script>
 <script src="/js/removeItem.js"></script>
 <body>
    <!-- Header -->
@@ -18,7 +17,7 @@
       </div>
       <div class="product-detail">
          <div class="row">
-            <div class="col-12 col-lg-8 pt-4">
+            <div class="col-12 col-lg-8 pt-4" id="cartItems">
                <% items.forEach(item => { %>
                
                <div class="col-12 mt-3">
