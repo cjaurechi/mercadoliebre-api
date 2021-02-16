@@ -2,8 +2,6 @@
 <html lang="es">
 <!-- Include Head -->
 <%- include('../partials/head', {title: 'Categorias', image: '', js: 'categories'}) %>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-<script src="/js/categories.js"></script>
 <body>
    <!-- Header -->
    <%- include('../partials/headerNavbar') %>
@@ -18,8 +16,8 @@
       </div>
       <div class="product-detail">
          <div class="row">
-            <div class="col-8 row products-container pl-5" id="productsPerCategory">
- 
+            <div class="col-8 row products-container pl-5" id="products-per-category">
+
                <% products.forEach(product => { %>
 				
                   <div class="col-12 col-sm-6 col-lg-4">

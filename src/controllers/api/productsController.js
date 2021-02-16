@@ -45,15 +45,25 @@ module.exports = {
             })
     },
 
-    // Muestra todos los productos de una categoría específica
-    getProducts(req, res, next) {
-        Category.findOne({
-			where: {
-				name: req.params.category
-			},
-            include: [{ association: 'products' }]
-        }).then(response => {
-            res.send(response.products)
-        })
-    }
+    getProducts (req, res) {
+		if (req.params.category) {
+            Category.findOne({
+                where: {
+                    name: req.params.category
+                },
+                include: ['products']
+            }).then(response => {
+                res.json(response.products)
+            }).catch(err => {
+                res.json(err);
+            })
+		} else {
+            Product.findAll()
+                .then(response => {
+                    res.json(response)
+                }).catch(err => {
+                    res.json(err);
+                })
+		}
+	}
 }

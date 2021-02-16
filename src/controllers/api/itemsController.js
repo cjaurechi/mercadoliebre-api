@@ -45,10 +45,19 @@ module.exports = {
     },
 
     removeFromCartAPI(req, res, next) {
-        Item.findOne({
+        Item.update({
+            state: 0
+        },
+            {
             where: {
-                // REMUEVE ITEM DEL CARRITO
+                id: req.body.itemId
             }
         })
+            .then(response => {
+                res.send(response);
+            })
+            .catch(err => {
+                res.send(err);
+            })
     }
 }
