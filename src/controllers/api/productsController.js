@@ -1,18 +1,26 @@
-const { validationResult } = require('express-validator');
+const {
+    validationResult
+} = require('express-validator');
 const createError = require('http-errors');
 
 // ******** Sequelize ***********
 
-const { Product, Brand, Category } = require('../../database/models');
+const {
+    Product,
+    Brand,
+    Category
+} = require('../../database/models');
 
 module.exports = {
 
     // Muestra los últimos 5 productos que fueron creados
     latest(req, res, next) {
         Product.findAll({
-            order: [['createdAt', 'ASC']],
-            limit: 8
-        })
+                order: [
+                    ['createdAt', 'DESC']
+                ],
+                limit: 8
+            })
             .then(function (resultado) {
                 let response = {
                     meta: {
@@ -29,9 +37,11 @@ module.exports = {
     // Muestra los últimos 5 productos con descuentos mas grandes
     offers(req, res, next) {
         Product.findAll({
-            order: [['discount', 'ASC']],
-            limit: 8
-        })
+                order: [
+                    ['discount', 'DESC']
+                ],
+                limit: 8
+            })
             .then(function (resultado) {
                 let response = {
                     meta: {
@@ -45,8 +55,8 @@ module.exports = {
             })
     },
 
-    getProducts (req, res) {
-		if (req.params.category) {
+    getProducts(req, res) {
+        if (req.params.category) {
             Category.findOne({
                 where: {
                     name: req.params.category
@@ -57,13 +67,13 @@ module.exports = {
             }).catch(err => {
                 res.json(err);
             })
-		} else {
+        } else {
             Product.findAll()
                 .then(response => {
                     res.json(response)
                 }).catch(err => {
                     res.json(err);
                 })
-		}
-	}
+        }
+    }
 }

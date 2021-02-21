@@ -112,14 +112,21 @@ hr {
 
 /*====== Main Navbar ======*/
 .btn-toggle-navbar {
-  background-color: var(--dark-blue);
-  color: #ffffff;
-  font-size: 1.5em;
-  border: none;
-  border-radius: 4px;
-  padding: 5px 15px;
-  display: block;
+  width: 40px;
+  height: 40px;
+  background-color: #0044AA;
+  color: white;
+  font-size: 20px;
+  padding: 10px;
+  border-radius: 5px;
   margin: 20px auto 0;
+  border: none;
+  display: block;
+}
+
+.btn-toggle-navbar:hover {
+  background-color: #0022AA;
+  cursor: pointer;
 }
 
 .main-navbar {
@@ -292,6 +299,7 @@ hr {
 .sub-footer {
   border-top: 1px solid var(--light-gray);
   background-color: #ffffff;
+  text-align: center;
 }
 
 .sub-footer p {
@@ -369,7 +377,7 @@ hr {
 }
 
 .buy-now-button {
-  background-color: var(--light-blue);
+  background-color: #0044AA;
   font-size: 1.6em;
   color: #ffffff;
   display: flex;
@@ -379,6 +387,29 @@ hr {
   border-radius: 8px;
   border: none;
   margin-bottom: 15px;
+}
+
+.buy-now-button:hover {
+  background-color: #0022AA;
+  cursor: pointer;
+}
+
+.delete-button {
+  background-color: #AA0044;
+  font-size: 1.6em;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 15px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 15px;
+}
+
+.delete-button:hover {
+  background-color: #CC1155;
+  cursor: pointer;
 }
 
 .action-button {
@@ -429,6 +460,11 @@ textarea.form-input {
   min-height: 140px;
   resize: vertical;
   padding: 15px;
+}
+
+.required:after {
+  content:"*";
+  color: red;
 }
 
 /* Cart */
