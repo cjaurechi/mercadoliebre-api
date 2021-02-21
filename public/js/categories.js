@@ -27,6 +27,11 @@ window.addEventListener('load', (event) => {
             console.log(err.message);
         })
 
+    let allProducts = document.getElementById('allProducts');
+    allProducts.addEventListener('click', (e) => {
+        window.location.reload();
+    })
+
     let outdoors = document.getElementById('Outdoors');
     outdoors.addEventListener('click', (e) => {
         e.preventDefault();
